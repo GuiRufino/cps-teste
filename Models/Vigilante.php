@@ -17,6 +17,7 @@ class Vigilante {
 
         if (!$this->db->query($sql)) {
             return false;
+            exit;
         }
         return true;
     }
@@ -28,14 +29,7 @@ class Vigilante {
         if (!$query) {
             error_log($this->db->error . PHP_EOL);
             return false;
+            exit;
         }
     }
-
-    // public function excluir($matricula){
-        
-    // }
-
-    // public function editar($matricula){
-
-    // } 
 }

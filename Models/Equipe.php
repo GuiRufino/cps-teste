@@ -20,6 +20,7 @@ class Equipe{
         if (!$query) {
             error_log($this->db->error . PHP_EOL);
             return false;
+            exit;
         }
 
         return true;
@@ -28,22 +29,32 @@ class Equipe{
     public function vigilante_equipe($matriculas)
     {
         $sql = "SELECT id FROM equipe WHERE nome_equipe = '$this->name';";
-        $equipe_id = $this->db->query($sql);
+        $equipe = $this->db->query($sql);
 
-        if (!$equipe_id) {
+        if (!$equipe) {
             error_log($this->db->error . PHP_EOL);
             return false;
+            exit;
         }
-        $equipe_id = mysqli_fetch_assoc($equipe_id);
-        $equipe_id = $equipe_id['id'];
+        $equipe = mysqli_fetch_assoc($equipe);
+        $equipe_id = $equipe['id'];
 
         for($i = 0; $i < count($matriculas); ++$i){
-            $sql = "UPDATE funcionario SET equipe = '$equipe_id' WHERE matricula = '$matriculas[$i]';";
-            $query = $this->db->query($sql);
+           $sql = "SELECT equipe FROM funcionario WHERE id = ('$equipe_id')";
+           $query = $this->db->query($sql);
 
-            if (!$query) {
+           if (mysqli_num_rows($query) > 0) {
+               return false;
+               exit;
+           }
+
+            $sql_equipe_funcionario = "UPDATE funcionario SET equipe = '$equipe_id' WHERE matricula = '$matriculas[$i]';";
+            $query_funcionario = $this->db->query($sql_equipe_funcionario);
+
+            if (!$query_funcionario) {
                 error_log($this->db->error . PHP_EOL);
                 return false;
+                exit;
             } 
         }
 

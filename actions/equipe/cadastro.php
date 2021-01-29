@@ -14,21 +14,20 @@ if (empty($nome) || empty($funcionarios)) {
 
 $equipe = new Equipe($db);
 $equipe->name = $nome;
-
 if ($equipe->criar_equipe() == false) {
     $_SESSION['aviso'] = "Não foi possivel criar a equipe!";
     header("location:../../views/cadastro/equipe.php");
-    return false;
     exit;
 }
 
 if ($equipe->vigilante_equipe($funcionarios) == false) {
     $_SESSION['aviso'] = "Não foi possivel inserir os funcionarios!";
     header("location:../../views/cadastro/equipe.php");
-    return false;
     exit;
 }
 
-header("location:../../views/cadastro/index.php");
+$db->close();
+
+header("location:../../views/cadastro/equipe.php");
 
 
