@@ -46,17 +46,15 @@ if (isset($_SESSION['aviso'])) {
         <table class="table mt-4">
           <thead>
             <tr>
-              <th scope="col">#Id</th>
-              <th scope="col">Nome Equipe</th>
-              <th scope="col">Nome Membro</th>
+              <th scope="col">Membro</th>
+              <th scope="col">Equipe</th>
             </tr>
           </thead>
           <tbody>
           <?php foreach($equipes as $equipe): ?>
             <tr>
-              <td><?php echo $equipe['id']; ?></td>
-              <td><?php echo $equipe['nome_equipe']; ?></td>
               <td><?php echo $equipe['nome_funcionario']; ?></td>
+              <td><?php echo $equipe['nome_equipe']; ?></td>
             </tr>
             <?php endforeach; ?>
           </tbody>
