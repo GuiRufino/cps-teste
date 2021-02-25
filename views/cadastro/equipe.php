@@ -28,7 +28,9 @@ require_once "../../config.php";
     <div class=" mt-3">
       <div class="form-group">
         <form id="form-team">
+          <label for="name-team">Nome do Time:</label>
           <input type="text" name="nome" class="form-control mb-3" id="name_team" placeholder="Digite um nome para a equipe" required>
+          <label class="mt-3" for="name-employee">Selecione os funcioanrios da equipe:</label>
           <select class="form-control" id="name_employee" name="equipe[]" id="options" multiple="multiple">
             <?php foreach ($funcionarios as $funcionario): ?>
             <option value="<?php echo $funcionario['matricula']; ?>"><?php echo $funcionario['nome_funcionario']; ?></option>
@@ -44,7 +46,7 @@ require_once "../../config.php";
     <div class="row">
       <?php if (count($equipes) > 0): ?>
       <table class="table mt-4">
-        <thead>
+        <thead class="thead-dark">
           <tr>
             <th scope="col">Membro</th>
             <th scope="col">Equipe</th>
