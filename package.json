@@ -1,0 +1,19 @@
+{
+  "name": "escala-vigilantes",
+  "version": "1.0.0",
+  "description": "teste para escala de vigilantes",
+  "main": "/index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuiRufino/cps-teste.git"
+  },
+  "author": "Guilherme Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuiRufino/cps-teste/issues"
+  },
+  "homepage": "https://github.com/GuiRufino/cps-teste#readme"
+}

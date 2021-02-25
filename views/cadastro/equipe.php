@@ -4,9 +4,7 @@ $title = "Criar Equipe";
 
 include "../header.php";
 require_once "../../config.php";
-?>
-<body>
-  <?php
+
   if (isset($_SESSION['funcionarios'])) {
     $funcionarios = $_SESSION['funcionarios'];
   } else {
@@ -19,19 +17,19 @@ require_once "../../config.php";
     $equipes = [];
   }
   ?>
-  
+  <body>
   <div class="container">
-    <?php 
-         if (isset($_SESSION['aviso'])) {
-          echo $_SESSION['aviso'];
-          unset($_SESSION['aviso']);
-        }
+    <?php
+    if (isset($_SESSION['aviso'])) {
+      echo $_SESSION['aviso'];
+      unset($_SESSION['aviso']);
+    }
     ?>
     <div class=" mt-3">
       <div class="form-group">
-        <form action="../../actions/equipe/cadastro.php" method="post">
-          <input type="text" name="nome" class="form-control mb-3" placeholder="Digite um nome para a equipe" required>
-          <select class="form-control" id="inputGroupSelect03" name="equipe[]" id="options" multiple="multiple">
+        <form id="form-team">
+          <input type="text" name="nome" class="form-control mb-3" id="name_team" placeholder="Digite um nome para a equipe" required>
+          <select class="form-control" id="name_employee" name="equipe[]" id="options" multiple="multiple">
             <?php foreach ($funcionarios as $funcionario): ?>
             <option value="<?php echo $funcionario['matricula']; ?>"><?php echo $funcionario['nome_funcionario']; ?></option>
             <?php endforeach;?>
@@ -39,11 +37,12 @@ require_once "../../config.php";
         </div>
       </div>
       <div class="row justify-content-end">
-        <button id="send" type="submit" class="btn btn-primary">Criar Equipe</button>
+        <button type="submit" class="btn btn-primary">Criar Equipe</button>
       </form>
     </div>
+    <div class="alerta"></div>
     <div class="row">
-      <?php if (count($equipes) > 0) : ?>
+      <?php if (count($equipes) > 0): ?>
       <table class="table mt-4">
         <thead>
           <tr>
@@ -52,18 +51,47 @@ require_once "../../config.php";
           </tr>
         </thead>
         <tbody>
-          <?php foreach($equipes as $equipe): ?>
+          <?php foreach ($equipes as $equipe): ?>
           <tr>
             <td><?php echo $equipe['nome_funcionario']; ?></td>
             <td><?php echo $equipe['nome_equipe']; ?></td>
           </tr>
-          <?php endforeach; ?>
+          <?php endforeach;?>
         </tbody>
       </table>
-      <?php endif; ?>
+      <?php endif;?>
     </div>
-
+    
   </div>
 </body>
+<script>
+  $(document).ready(()=>{
+    
+    $("#form-team").submit((e)=>{
+      
+      e.preventDefault()
+      
+      let name_team = $("#name_team").val()
+      let names_employee = $("#name_employee").val()
+      
+      $.ajax({
+        method: 'post',
+        type: 'json',
+        url:'/actions/equipe/cadastro.php',
+        data: {
+          equipe: names_employee,
+          nome: name_team
+        },
+        success:()=>{
+          window.alert('Cadastrado')
+          $(".alerta").text('cadastrado')
+        },
+        error: (request, stt, err)=>{
+          window.alert(err)
+        }
+      })   
+    })
+  })
+</script>
 </html>
 

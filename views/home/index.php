@@ -10,4 +10,32 @@
     </div>
 </div>
 </body>
+<script>
+    $(document).ready(()=>{
+    $("#form-employee").submit((e)=>{
+        
+        e.preventDefault()
+        
+        let name_employee = $("#name").val()
+        
+        $.ajax({
+            method: 'post',
+            type: 'json',
+            url:'/actions/funcionario/cadastro.php',
+            data: {
+                name: name_employee
+            },
+            success:()=>{
+                $('#modal-employee').modal('hide')
+                window.alert('cadastrado')
+            },
+            error: (request, stt, err)=>{
+                $('#modal-employee').modal('hide')  
+                window.alert(err)
+            }
+        })
+        
+    })
+})
+</script>
 </html>
